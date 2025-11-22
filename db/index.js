@@ -1,5 +1,5 @@
 // file to seed database
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const { mysqlOptions } = require('./config.js');
 
 const connection = mysql.createConnection(mysqlOptions);
@@ -14,9 +14,9 @@ connection.connect((err) => {
 });
 
 const addReview = (reviewData, callback) => {
-  connection.query(`INSERT INTO 
-    reviews (user_id, listing_id, date, review_body, 
-    accuracy, communication, cleanliness, location, checkin, value) 
+  connection.query(`INSERT INTO
+    reviews (user_id, listing_id, date, review_body,
+    accuracy, communication, cleanliness, location, checkin, value)
     VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)`,
   reviewData,
   (err) => {
@@ -30,17 +30,17 @@ const addReview = (reviewData, callback) => {
 
 const getReviews = (listingId, callback) => {
   // TODO: sort by most recent review first
-  connection.query(`SELECT 
+  connection.query(`SELECT
     reviews.id, reviews.accuracy, reviews.checkin,
     reviews.cleanliness, reviews.communication, reviews.value,
-    reviews.date, reviews.location, 
+    reviews.date, reviews.location,
     reviews.review_body AS reviewBody,
     users.id AS userId,
     users.user_image AS userImage,
     users.username
     FROM reviews
-    INNER JOIN users 
-    ON reviews.user_id = users.id 
+    INNER JOIN users
+    ON reviews.user_id = users.id
     WHERE listing_id = ?`,
   [listingId],
   (err, results) => {
