@@ -1,6 +1,6 @@
 # clonebnb
 
-![](http://g.recordit.co/OKbrwlAyb7.gif)
+![](image.png)
 
 ### Description
 
